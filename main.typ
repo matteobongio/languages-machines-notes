@@ -39,3 +39,33 @@
 - Multi-track, multi-tape, nondeterministic
 == Proving decidability, semi-decidability or undecidability
 
+= Support lecture
+
+== Pumping lemma
+
+Prove tht L is not regular by the pumping lemma
+
+
+There exists a $k >= 0$ such that
+for every $z in L "for which" |z| >= k$, there exists a splitting
+$z = u v w$ with $|u v| <= k$ and $v != epsilon$ such that
+for every $i >= 0$ we have $u v^i w in L$
+
+$forall exists forall exists$
+
+
+$ L = {w w | w in {a, b}^*} $
+
+Take $z = a^k b a^k b$ By the PL, there is a splitting $z = u v w$ such that $|u v| <= k$
+and $v != epsilon$
+
+Because the first $k$ symbols are all 'a'
+
+$
+ u = a^i, v = a^j, i + j <= k \
+ w = a^(k - i - j) b a^k b
+$
+
+$z = u v^0 w$ is not in $L$ (prove), so $L$ is nonregular
+
+
