@@ -13,11 +13,11 @@
    Matteo Bongiovanni
 ])
 
-= Regualr Languages
+= Regular Languages
 == Definitions
-== Regualr Expressions
+== Regular Expressions
 == DFSM, NFSM, N$epsilon$FSM
-== FSM to regualr expression
+== FSM to regular expression
 == FSM minimization
 == Pumping lemma for regular languages
 == Regular expression identities
