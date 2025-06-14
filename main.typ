@@ -1,4 +1,4 @@
-#import "lib.typ"
+#import "lib.typ": *
 #import "@preview/finite:0.5.0": automaton
 
 #let title = [Languages and Machines]
@@ -22,12 +22,25 @@
 + Decidable languages, recognized by always terminating TM
 + semi-decidable languages, recognized by TM
 - Induction
+
+= Grammars
+
+The *Chomsky hierarchy* - in order of increasing complexity:
+
++ Right-linear grammars (_equivalent to_ FSM)
++ Context-free grammars (_equivalent to_ PDM)
++ Unrestricted grammars (_equivalent to_ semi-decidable TM)
+
+#image("img/nutshell.png")
+
 = Regular Languages
 == Operations
 - $L = {a a, b b}$ and $M = {c, d}$ then $L M = {a a c, a a  d, b b c, b b d}$
 - ${a,b, a b}^2 = {a a, a b, a a b, b a, b b, b a b, a b a, a b b, a b a b}$
 - ${a,b}^* = {epsilon} union {a, b} union {a a, b b, b a, b b} union {a a a...}$
 - ${a b, c d}^R = {b a, d c}$ 
+- $|w| =$ length of string $w$
+- $n_a (w) =$ the occurances of $a$ in the string $w$
 
 == Definitions
 Recursively defined over an alphabet $Sigma$ from
@@ -54,8 +67,7 @@ Regular Expression Identities : \
 - $u^* = (u^*)^*$
 - $(u | v)^* = (u^* | v)^* = u^*(u | v)^* = (u | v u^*)^* = (u^* v^*) = u^*(v u^*)^* = (u^* v u^*)^*$
 
-
-== DFSM, NFSM, N$epsilon$FSM
+== DFSM, NFSM, #NeFSM
 
 A *deterministic finite state machine (DFSM)* is a quintuple $M = (Q, Sigma, delta, q_0, F)$ where:
 - $Q$ is a finite set of states
