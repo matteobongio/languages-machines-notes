@@ -15,6 +15,13 @@
    Roman Gazarek
 ])
 
+= Overview
+
++ Regular languages, recognized by FSM
++ Context-free languages, recognized by PDM
++ Decidable languages, recognized by always terminating TM
++ semi-decidable languages, recognized by TM
+- Induction
 = Regular Languages
 == Operations
 - $L = {a a, b b}$ and $M = {c, d}$ then $L M = {a a c, a a  d, b b c, b b d}$
@@ -67,7 +74,6 @@ When symbol $a$ is read in a state $q_n$, the state becomes $delta (q_n, a)$.
 #align(center, text(12pt)[
   $delta(q_n, a) = q_i$
 ])
-
 
 
 == FSM to regular expression
