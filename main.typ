@@ -137,8 +137,48 @@ When symbol $a$ is read in a state $q_n$, the state becomes $delta (q_n, a)$.
   $delta(q_n, a) = q_i$
 ])
 
+=== #NeFSM to DFSM
+
+2 table method
+
+#table(
+  columns: 5,
+  table.header([], [$epsilon^*$], [a], [b], [c]),
+[$q_0$], [${q_0, q_3}$], [-], [-], [-],
+[$q_1$], [${q_1}$], [$q_0$], [$q_2$], [$q_1$],
+[$q_2$], [${q_1, q_2}$], [-], [$q_0$], [-],
+[$q_3$], [${q_3}$], [$q_2$], [$a_0$], [-],
+)
+
+#table(
+  columns: 4,
+  table.header([$delta_D$], [$a epsilon^*$], [$b epsilon^*$], [$c epsilon^*$]),
+  [$-> {q_0, q_3}$], [${q_1, q_2}$], [${q_0, q_3}$], [$emptyset$],
+  [$*{q_1, q_2}$], [${q_0, q_3}$], [${q_0, q_1, q_2, q_3}$], [${q_1}$],
+  [$*{q_0, q_1, q_2, q_3}$], [${q_0, q_1, q_2, q_3}$], [${q_0, q_1, q_2, q_3}$], [${q_1}$],
+  [${q_1}$], [${q_0, q_3}$], [${q_1, q_2}$], [${q_1}$],
+  [$emptyset$], [$emptyset$], [$emptyset$], [$emptyset$],
+)
 
 == FSM to regular expression
+
+For machines in *normal form*
+
+#bluebox("Normal Form", [
+  - the start state $q_0$ has no incoming arrows
+  - $q_f$ is the only accepting state, and has no outgoing arrows.
+
+  Note: states different from $q_0$ and $q_f$ are called *internal nodes*
+])
+
++ Initially, a label between $q_1$ and $q_2$ is the union of all possible symbols
+ that transition from $q_1$ to $q_2$.
++ One by one, we eliminate the internal nodes of the graph, by chaining edges.
++ When all internal nodes are eliminated, there is only one remaining edge,
+ namely from $q_0 -> q_f$.
++ The label of the last edge is the resulting regular expression
+
+
 == FSM minimization
 == Pumping lemma for regular languages
 == Regular expression identities
