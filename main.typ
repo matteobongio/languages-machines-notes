@@ -13,6 +13,13 @@
    Matteo Bongiovanni
 ])
 
+= Overview
+
++ Regular languages, recognized by FSM
++ Context-free languages, recognized by PDM
++ Decidable languages, recognized by always terminating TM
++ semi-decidable languages, recognized by TM
+- Induction
 = Regular Languages
 == Definitions
 == Regular Expressions
