@@ -1,5 +1,8 @@
 #import "@preview/showybox:2.0.3": showybox
 
+#let NeFSM = [ N$epsilon$FSM ]
+
+
 #let bluebox(title, text, ..opts) = {
   showybox(
     title-style: (

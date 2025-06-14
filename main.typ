@@ -1,4 +1,4 @@
-#import "lib.typ"
+#import "lib.typ": *
 
 #let title = [Languages and Machines]
 #set page(
@@ -16,7 +16,7 @@
 = Regular Languages
 == Definitions
 == Regular Expressions
-== DFSM, NFSM, N$epsilon$FSM
+== DFSM, NFSM, #NeFSM
 == FSM to regular expression
 == FSM minimization
 == Pumping lemma for regular languages
