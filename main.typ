@@ -180,6 +180,69 @@ For machines in *normal form*
 
 
 == FSM minimization
+
+Minimize FSMs by *collapsing* some of its state, to create a different, but smaller machine
+that also accepts the same language.
+
++ Never collapse an accpt state and a reject state
++ if $q$ and $p$ are collapsed, then $delta(q, a)$ and $delta(p, a)$ must also be collapsed
+  - If $accent(delta, hat)(p, x) in F$ and $accent(delta, hat)(p, x) in.not F$, for some $x in Sigma^*$. then we cannot collapse $q$ and $p$, otherwise, we can.
+
+=== Equivalence Relations
+
+#let R = math.class(
+  "relation",
+  $cal(R)$
+)
+
+let #R be a relation on a set $S$
+ - #R is an _equivalence_ if it is reflective, symmetric, and transitive.
+   $
+    s #R s "for all" s in S \
+    s #R t "implies" t #R s \
+    s #R t and t #R u "imply" s #R u \
+   $
+
+=== Equivalence Classes and Partitions
+
+Given an equivalence #R on $S$, the _equivalence class_ of $s in S$ is the set
+
+$
+  [s] = {t in S | s #R t}
+$
+
+Given some non-empty set, a *partition* $cal(P)$ is a set consiting of non-empty subset,
+called blocks, which *cover* the set (the union of all partitions of a set is the set itself),
+and are *disjoint*, (the intersection of all partitions is the emptyset)
+
++ Equivalences induce partitions, the set of all equivalence classes is a partition
++ Partitions induce equivalences
+
+
+=== Computing Equivalence
+
+it s easier to computute $approx.not$
+
+start with states that lead to final, and those that don t lead to final
+
++ Write down a table with all pairs initially  unmarked
++ Mark ${p, q}$ if $p in F$ and $q in.not F$
++ repeat until no more changes occur:
+  if there is an unmarked pari ${p, q}$ such that the pair
+  ${delta(p, a), delta(q, a)}$ is marked, then mark the pair
++ at the end we have that $p approx q "iff" {p, q}$ is not marked
+
+=== Indistinguishability of strings
+
+$
+  w ~ v &<=> accent(delta, hat)(q_o, w) accent(delta, hat)(q_0, v) \ 
+        &<=> forall u in Sigma^* : w u in L <-> v u in L
+$
+for $w, v in Sigma^*$
+
+
+
+
 == Pumping lemma for regular languages
 == Regular expression identities
 == Regular grammars
