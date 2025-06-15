@@ -13,7 +13,7 @@
 
 #align(center, text(17pt)[
    *#title*
-   
+
    Matteo Bongiovanni\
    Roman Gazarek
 ])
@@ -49,7 +49,7 @@ Note: The empty string $epsilon$ is generated iff $S -> epsilon$.
 + *Remove* all forbidden $epsilon$-productions
   - Ensure that $epsilon$ is *not produced by nonterminals* different from $S$
   - *Essentially noncontracting* grammars, *nullable* nonterminals
-  
+
   #bluebox("", [
     A Grammar is *essentially noncontracting* if $S$ is nonrecursive and $(A -> epsilon) in.not P$
     for any $A != S$.
@@ -68,7 +68,7 @@ has one of the following forms:
 
 + $A -> B C$ with nonterminals $A, B, C$ and $B != S$ and $C !=S$
 + $A -> a$ with a nonterminal $A$ and a terminal symbol $a$
-+ $S -> epsilon$ for the start symbol $S$ 
++ $S -> epsilon$ for the start symbol $S$
 
 === Productive to Chomsky
 
@@ -91,7 +91,7 @@ $
 - $L = {a a, b b}$ and $M = {c, d}$ then $L M = {a a c, a a  d, b b c, b b d}$
 - ${a,b, a b}^2 = {a a, a b, a a b, b a, b b, b a b, a b a, a b b, a b a b}$
 - ${a,b}^* = {epsilon} union {a, b} union {a a, b b, b a, b b} union {a a a...}$
-- ${a b, c d}^R = {b a, d c}$ 
+- ${a b, c d}^R = {b a, d c}$
 - $|w| =$ length of string $w$
 - $n_a (w) =$ the occurances of $a$ in the string $w$
 
@@ -118,28 +118,44 @@ A proof that $L_1$ is not regular:
 - If $L_1$ is regular, it would be accepted by a *DFSM* $M$
 - Machine M has a finite number of states, $k$
 - Consider the action of $M$ on input $a^n b^n$, with $n >> k:$\
-// "Trust me bro typst is so much nicer than Latex" 
-#align(center)[#text(blue)[[q0]] #math.underbrace($a a a a a a a a a$, $n$) #math.underbrace($b b b b b b b b b$, $n$) #text(blue)[[$q_f$]]]
+// "Trust me bro typst is so much nicer than Latex"
+// Skill issue - Matteo
+
+#let colblue(math) = text(fill: blue, $#math$)
+
+#align(center)[
+  $colblue([q_0]) underbrace(a a a a a a a a a, n) thin underbrace(b b b b b b b b b, n) colblue([q_f])$
+]
 
 - By the pigeonhole principle (those who know), there is a state $q_i$ that is visited more than once in processing the sequence of $a$'s:
-#align(center)[#text(blue)[[$q_0$]] #math.overbrace($a a a a$ +text(blue)[[$q_i$]] + $a a$ + text(blue)[[$q_i$]] + $a a$, $n$) #math.overbrace($b b b b b b b b b$, $n$) #text(blue)[[$q_f$]]]
+#align(center)[
+  $
+  colblue([q_0]) overbrace(a a a a colblue([q_i]) + a a + colblue([q_i]) + a a, n) thin overbrace(b b b b b b b b b, n) colblue([q_f])
+  $
+]
 
 - Let's split $a^n b^n$ into three pieces $(u,v,w)$ according to $q_i$:
 
 #align(center)[
-  #text(blue)[[$q_0$]]
-  #math.underbrace($a a a a$, $u$) #text(blue)[[$q_i$]] #math.underbrace($a a$, $v$) #text(blue)[[$q_i$]]#math.underbrace($a a b b b b b b b b b$, $w$) #text(blue)[[$q_f$]
-  ]
+  $
+    colblue([q_0])
+    underbrace(a a a a, u) colblue([q_i]) underbrace(a a, v) colblue([q_i]) underbrace(a a b b b b b b b b b, w) colblue([q_f])
+  $
 ]
 
-#align(center)[We have: #math.underbrace($accent(delta, "^")(q_0, u)=q_i$, $-->$), #math.underbrace($accent(delta, "^")(q_i, v)=q_i$, $arrow.ccw$), and #math.underbrace($accent(delta, "^")(q_i, w)=q_f in F$, $-->$).]
+#align(center)[
+  We have:
+$
+ underbrace(accent(delta, "^")(q_0, u)=q_i, -->),  underbrace(accent(delta, "^")(q_i, v)=q_i, arrow.ccw), and  underbrace(accent(delta, "^")(q_i, w)=q_f in F, -->).]
+$
+]
 
 What does $arrow.ccw$ mean?
 - We could erase $v$ and the obtained string would be accepted!
 
-#align(center)[
-  #text(blue)[[$q_0$]] #math.underbrace($a a a a$, $u$) #text(blue)[[$q_i$]] #math.underbrace($a a b b b b b b b b b$, $w$) #text(blue)[[$q_f$]]
-  ]
+$
+  colblue([q_0])  underbrace(a a a a, u) colblue([q_i]) underbrace(a a b b b b b b b b b, w) colblue([q_f])
+$
 #align(center)[This is wrong: $u w = a^(n-j)b^n in L(M)$ but $u w in.not L_1$]
 - We could even insert extra copies of $v$ and the resulting string would also be accepted.
 
@@ -153,28 +169,28 @@ What does $arrow.ccw$ mean?
   $accent(delta, "^")(q_0, a^i)=q, accent(delta, "^")(q, a^j) = q, accent(delta, "^")(q, a^m) = q_f in F$
 ]
 - Alternatively:
-#align(center)[
-  #text(blue)[[$q_0$]] 
-  #math.overbrace(
-    math.underbrace($a a a a a a a a a a$, $i$) +
-    math.underbrace($a a a a a$, $j$) + math.underbrace($a a a a a a a a a a a a a a a a$, $m$), $2^n$
+$
+  colblue([q_0])
+   overbrace(
+    underbrace(a a a a a a a a a a, i) +
+    underbrace(a a a a a, j) + underbrace(a a a a a a a a a a a a a a a a, m), 2^n
   )
-  #text(blue)[[$q_f$]]
-]
+  colblue([q_f])
+$
 
 - Now given $accent(delta, "^")(p, a^j) = p$, we could insert an extra $a^j$, to get $a^(2^n + j)$, and the resulting string would be erroneously accepted:
 
-#align(center)[
-  #text(blue)[[$q_0$]]
-  #math.underbrace($a a a a a a a a a a$, $i$)
-  #text(blue)[[$q$]]
-  #math.underbrace($a a a a a$, $j$)
-  #text(blue)[[$q$]]
-  #math.underbrace($a a a a a$, $j$)
-  #text(blue)[[$q$]]
-  #math.underbrace($a a a a a a a a a a a a a a a a$, $m$)
-  #text(blue)[[$q_f$]]
-]
+$
+  colblue([q_0])
+   underbrace(a a a a a a a a a a, i)
+  colblue([q])
+   underbrace(a a a a a, j)
+  colblue([q])
+   underbrace(a a a a a, j)
+  colblue([q])
+   underbrace(a a a a a a a a a a a a a a a a, m)
+  colblue([q_f])
+$
 
 #align(center)[Indeed, we can derive $accent(delta, "^")(q_0, a^(2^n + j)) = q_f in F$]
 
@@ -363,7 +379,7 @@ start with states that lead to final, and those that don t lead to final
 === Indistinguishability of strings
 
 $
-  w ~ v &<=> accent(delta, hat)(q_o, w) accent(delta, hat)(q_0, v) \ 
+  w ~ v &<=> accent(delta, hat)(q_o, w) accent(delta, hat)(q_0, v) \
         &<=> forall u in Sigma^* : w u in L <-> v u in L
 $
 for $w, v in Sigma^*$
@@ -494,7 +510,7 @@ A *pushdown machine* is a tuple $M = (q, Sigma, Gamma, delta, q_0, F)$ where
 - $delta$ is the transition function
 $
   delta : mark(Q, tag: #<Q>, color: #blue) times (mark(Sigma union {epsilon}, tag:#<input_symbol>, color: #purple))
-  times (mark(Gamma union {epsilon}, tag:#<pop>, color: #red)) -> cal(P)(mark(Q, tag:#<newQ>, color: #blue) 
+  times (mark(Gamma union {epsilon}, tag:#<pop>, color: #red)) -> cal(P)(mark(Q, tag:#<newQ>, color: #blue)
   times (mark(Gamma union {epsilon}, tag:#<push>, color: #red)))
 
   #annot(<Q>)[state]
@@ -546,10 +562,10 @@ The stack only stores nonterminals
 
 == PDM to CFG
 
-+ $S -> <Q_0, epsilon q_f>$ (for every $q_f in F$)
-+ $<q, A, r> -> a <p, B, r>$ (Use $A$ now for the transition $p attach(->, t: PDM(a, A, B)) q$)
-+ $<q, A, r> -> <q, epsilon, p><p, A, r>$(use $A$ from an intermediate $p$)
-+ $<q, epsilon, q> -> epsilon$ (done processing)
++ $S -> angle.l Q_0, epsilon q_f angle.r$ (for every $q_f in F$)
++ $angle.l q, A, r angle.r -> a angle.l p, B, r angle.r$ (Use $A$ now for the transition $p attach(->, t: PDM(a, A, B)) q$)
++ $angle.l q, A, r angle.r -> angle.l q, epsilon, p angle.r angle.l p, A, r angle.r$(use $A$ from an intermediate $p$)
++ $angle.l q, epsilon,  angle.r -> epsilon$ (done processing)
 
 == Closure properties and proofs
 
