@@ -549,14 +549,16 @@ Transitions push strings of symbols onto the stack, rather than just one symbol
 
 From a normalized Context-Free Grammar, we can construct a PDM that accepts that language.
 
-#cetz.canvas({
-  import finite.draw: state, loop, transition
-  state((0,0), "q0", label: $q_0$)
-  state((3,0), "q1", label: $q_1$)
-  transition("q0", "q1", label:$PDM(epsilon, epsilon, S)$, curve: 0)
-  loop("q1", label:$PDM(a, A, epsilon) "For each" A -> a in P, a in Sigma$)
-  loop("q1", anchor: bottom, label:$PDM(epsilon, A, A_1...a_n) "For each" A -> A_1...A_n in P, accent(A, arrow) in V^*$)
-})
+#align(center,
+  cetz.canvas({
+    import finite.draw: state, loop, transition
+    state((0,0), "q0", label: $q_0$)
+    state((3,0), "q1", label: $q_1$)
+    transition("q0", "q1", label:$PDM(epsilon, epsilon, S)$, curve: 0)
+    loop("q1", label:$PDM(a, A, epsilon) "For each" A -> a in P, a in Sigma$)
+    loop("q1", anchor: bottom, label:$PDM(epsilon, A, A_1...a_n) "For each" A -> A_1...A_n in P, accent(A, arrow) in V^*$)
+  })
+)
 
 The stack only stores nonterminals
 
@@ -674,6 +676,13 @@ Let $L$ be a language.
 - $L$ is *semi-decidable* (or *recursively enumerable, RE*) if there exists a TM $M$ such that $L = L(M)$.
 - $L$ is *decidable* (or *recursive*) if there is an always terminating TM that accepts $L$ by termination in an accepting state.
 - If $L$ is decidable, then it is also semi-decidable. *The converse doesn't hold!!!*
+== Variations of TMs
+
+- Multi-track: the equivalent of using tuples in the tape
+- multi-tape
+- nondeterministic
+
+- Computing a function vs recognizing a language
 
 == Proving decidability, semi-decidability or undecidability
 
