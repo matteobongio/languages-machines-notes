@@ -740,9 +740,114 @@ Let $L$ be a language and let $T(n)$ be a *polynomial function*:
 - Computing a function vs recognizing a language
 
 == Proving decidability, semi-decidability or undecidability
+- How to distinguish between the computable and non-computable?
+ - Turing machines (TMs)
+ - Combinatory logic
+ - The $lambda$-calculus (haskell reference!!!)
+- All of these are equivalent - they embody the same notion of *effective computation*, from different angles
+- Deterministic TMs are arguably closer to actual computers than the other formalisms
+
+=== Church-Turing's Thesis
+- While formalisms such as TMs, combinatory logic, $lambda$-calculus,
+etc, are vastly dissimilar, they have a striking commonality
+- *Effective computability*: they capture our intuition about what
+it means to be effectively computable — no more and no less
+- *Church-Turing's thesis*: computability is not just TMs, nor
+Java, nor the $lambda$-calculus, but the 'common spirit' they embody
+- Not a theorem, but an observation (perhaps unsurprising today)
+- TMs were a key step towards acceptance of the Church-Turing's
+thesis: they were the first readily programmable model
+- Of course TMs do not address all possible aspects of
+computation (say, interactivity or randomness) but they do
+capture a robust notion of effective computability
+
+=== Universality
+- *Programs as data*:
+ - TMs are powerful enough that programs can be written to read/manipulate other programs (encoded as data)
+- TMs can interpret the input strings as descriptions of other TMs
+- A *universal machine* $U$ is constructed to take an encoded description of another machine $M$ and a string $x$ as input. $U$ can perform a step-by-step simulation of $M$ on input $x$
+- This is computers as we know them today
+
+=== Self-reference
+- A consequence of universality, and key to the discovery of uncomputable problems
+- Observation: there are uncountably many *decision problems* but countably many TMs
+- Extremely powerful: Gödel's incompleteness theorem, whose proof exploits self-reference
+
+=== Terminology
+
+A language $L$ is 
+- *recursive* if $L = L(M)$ for some #underline("always terminating") TM $M$
+- *recursively enumerable* if $L=L(M)$ for some TM $M$\ \
+Alternatively, let $P$ be a *property* of strings.
+- $P$ is #text(red)[decidable] if the set of all strings having $P$ is recursive: there is a total TM that accepts strings that have $P$ and rejects those that don't
+- $P$ is #text(red)[semi-decidable] if the set of strings having $P$ is recursively enumerable: there is a TM that accepts $x$ if $x$ has $P$ and _rejects or loops if not_ \ \
+
+*Recursive* and *recursively enumerable* are best applied to sets, while *decidable* and *semi-decidable* to properties
+- Property $P$ is decidable $<=>$ Set ${x | P(x)}$ is recursive
+- Set $A$ is recursive $<=>$ $x in A$ is decidable
+Similarly:
+- Property $P$ is semi-decidable $<=>$ Set ${x | P(x)}$ is recursively enumerable
+- Set $A$ is recursively enumerable $<=> x in A$ is semi-decidable
+
+=== Decision problems 
+A question which expects a 'yes' or 'no' answer, depending on some given *instance* (positive or negative). We would like to have procedures (programs, TMs) to answer correctly this question in all cases.\
+Examples:
++ Given a graph, is there a path between two of its nodes?
++ Is $n in NN$ the difference between two prime numbers?
++ Given a CFG $G$ and a string $w$, do we have $w in L(G)$?
++ Given a CFG $G$, does $L(G)$ contain a palindrome?
++ Given a TM $M$ and a string $w$, does it hold that $w in L(M)$?
++ Given a program $P$, does the call of $P$ with input $I$ terminate?
+
+=== Decidable and semi-decidable problems
+A problem is:
+- *decidable* if there is a procedure (program or TM) able to answer the question correctly in all cases
+- *semi-decidable* if there is a procedure that
+ - for every positive instance terminates with answer 'yes'
+ - for every negative instance terminates with answer 'no' or loops
+
+*Examples*\
++ Given a graph, is there a path between two of its nodes? #text(blue)[(decidable)]
++ Is a natural $n$ the difference between two prime numbers? #text(rgb("#ff2bae"))[(semi-decidable)]
++ Given a CFG $G$ and a string w , do we have $w in L(G)$? #text(blue)[(decidable)]
++ Given a CFG G, does $L(G)$ contain a palindrome? #text(red)[(not decidable)]
++ Given a TM $M$ and a string $w$ , does it hold that $w in L(M)$? #text(red)[(not decidable)]
++ *The halting problem*: Given a program $P$, does the call of $P$ with input $I$ terminate? #text(red)[(not decidable)]
+
+=== Turing Machines, in Plaintext
+*From* $M$ *to* $R(M)$
+- Define a *numbering function* $n$ that maps each state $q$ into a positive integer $n(q)$. Similarly for symbols in the tape alphabet and for the direction $d in {L,R}$.
+- The functions may clash: $n(q_0)=1, n(0)=1$ and $n(L)=1$.
+- Let us write $1^k$ to denote $underbrace(11...1, k "times")$. A transition #align(center)[
+  $delta(q,X) = [r,Y,d]$ is represented as:\ $001^(n(q))01^(n(X))01^(n(r))01^(n(Y))01^(n(d))$
+]
+- Given $M$, its string representation $R(M)$ corresponds to a sequence of encoded transitions, followed by '$000$'
+- Hence, assuming an input alphabet of bits, the string $R(M)w$ corresponds to the regular expression #align(center)[$underbrace((0(01^+)^5)^*000, R(M))underbrace((0|1)^*, "input" w)$]
 
 
-= Support lecture
+=== The halting problem for TMs
+
+*Proof by contradiction*
++ Assume there is a TM $H$ that solves the halting problem. A string is accepted by $H$ if
+ - the input consists of two strings, $R(M)$ and $w$
+ - the computation of $M$ with input $w$ halts.\ Otherwise, $H$ rejects the input. #image("images/halting1.png")
++ Modify $H$ to build another TM, called $K$: the computations of $K$ are the same as $H$, but $K$ loops indefinitely whenever $H$ terminates in an accepting state (whenever $M$ halts on $w$).
++ Combine $K$ with a "copy machine" to build another TM called $D$, with $D(M) = K(M,M)$ as follows: #figure(
+  image("images/halting3.png"),
+  caption: "If the call " + $D(M)$ + "terminates, then the call " + $M(M)$ + "won't terminate"
+)
++ The input to $D$ may be the representation of any TM, even $D$ itself. Adapting the diagram: #image("images/halting4.png")\ Thus, $D(D)$ terminates iff $D(D)$ doesn't terminate. A contradiction derived from the assumption that there is a machine $H$ that solves the halting problem.
+
+=== Halting problem without input
+A "simpler" problem which is also undecidable.\
+Given a program $P$ #underline("without input"), is there a program $Q$ that can decide whether or not $P$ terminates?
++ Assume $Q$ does exist, and is an always terminating program with boolean output.
++ $Q(P)$ terminates iff the call $P$ terminates
++ Define a "linker" $L$: a program that calls program $P_i$ with input $I$
++ $L(P_i, I)$ is a program without input, for any $P_i$ and $I$
++ Thus, $Q(L(P_i,I))$ terminates iff the call $P_i(I)$ terminates
++ Define a program $Q'$ such that $Q'(P_i, I) = Q(L(P_i,I))$
++ $Q'$ would decide the halting problem - a contradiction
 
 == Pumping lemma
 
