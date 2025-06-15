@@ -372,7 +372,35 @@ for $w, v in Sigma^*$
 
 
 == Pumping lemma for regular languages
-Dumbass lemma. You have a sufficiently long string, find a substring which you can pump (repeat an arbitrary amount of times),bam you've proven a language is not regular.
+Dumbass lemma. You have a sufficiently long string, find a substring which you can pump (repeat an arbitrary amount of times),bam you've proven a language is not regular. Better explanation below:
+
+Prove tht L is not regular by the pumping lemma
+
+
+There exists a $k >= 0$ such that
+for every $z in L "for which" |z| >= k$, there exists a splitting
+$z = u v w$ with $|u v| <= k$ and $v != epsilon$ such that
+for every $i >= 0$ we have $u v^i w in L$
+
+$forall exists forall exists$
+
+
+$ L = {w w | w in {a, b}^*} $
+
+Take $z = a^k b a^k b$ By the PL, there is a splitting $z = u v w$ such that $|u v| <= k$
+and $v != epsilon$
+
+Because the first $k$ symbols are all 'a'
+
+$
+ u = a^i, v = a^j, i + j <= k \
+ w = a^(k - i - j) b a^k b
+$
+
+$z = u v^0 w$ is not in $L$ (prove), so $L$ is nonregular
+
+
+
 == Regular grammars
 A grammar $(V, Sigma, P, S)$ is *regular* if every production rule in $P$ has one of the following forms $(a in Sigma$ and $A, B in V)$:
 - $A -> a B$ or
@@ -400,8 +428,7 @@ Therefore:
 - _Complement_:\Obtain a DFSA $M$ of the given language, and define another DFSA $M'$ in which the accepting states of $M$ become non-accepting states of $M'$, and vice versa
 - _Intersection_: Two possibilities:\
 
-TODO: Fix this (typst moment)
-+ Use the law $L_1 inter L_2 = #overline[#overline[$L_1$] $union$ #overline[$L_2$]]$ (and reduce the cases above)
++ Use the law $L_1 inter L_2 = overline(overline(L_1) union overline(L_2))$ (and reduce the cases above)
 + Define a construction that runs two DFSAs in "parallel"\
 Given $M_i = (Q_i, Sigma, delta_i, q_i, F_i)$ (with $i in {1,2}$), define $M=(Q_1 times Q_2, Sigma, delta, (q_1,q_2), F_1 times F_2)$, where $delta((p,q),a) = (delta_1(p,a),delta_2(q,a))$.
 
@@ -515,31 +542,5 @@ If $R$ is a regualr language and $L$ is a context-free language, then $R inter L
 = Support lecture
 
 == Pumping lemma
-
-Prove tht L is not regular by the pumping lemma
-
-
-There exists a $k >= 0$ such that
-for every $z in L "for which" |z| >= k$, there exists a splitting
-$z = u v w$ with $|u v| <= k$ and $v != epsilon$ such that
-for every $i >= 0$ we have $u v^i w in L$
-
-$forall exists forall exists$
-
-
-$ L = {w w | w in {a, b}^*} $
-
-Take $z = a^k b a^k b$ By the PL, there is a splitting $z = u v w$ such that $|u v| <= k$
-and $v != epsilon$
-
-Because the first $k$ symbols are all 'a'
-
-$
- u = a^i, v = a^j, i + j <= k \
- w = a^(k - i - j) b a^k b
-$
-
-$z = u v^0 w$ is not in $L$ (prove), so $L$ is nonregular
-
 
 
