@@ -64,4 +64,8 @@
     ..opts
   )
 }
+#let blank = $cal(B)$
+#let tml = $upright(L)$
+#let tmr = $upright(R)$
+#let TM(read, write, move) = $#read backslash #write thin #move$
 

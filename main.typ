@@ -615,7 +615,7 @@ A TM that reads the input string and interchanges symbols $a$ and $b$:
     initial: "q1",
     final: none,
     labels: (
-      q1-q1: $a slash b R\ b slash a R\ $,
+      q1-q1: $a slash b tml\ b slash a tmr\ $,
       q1-q2: $B slash B L$,
       q2-q2: $a slash a L\ b slash b L\ $,
     ),
@@ -637,7 +637,8 @@ The global state of the TM is determined by the state $q in Q$, the contents of 
 Suppose $X, Y, Z$ are tape symbols (in $Gamma$).\
 Moving to the next configuration:
 #align(center)[
-  $delta(q, X)=(r, Y, R) => u Z q X v tack.r u Z Y r v\
+  $
+  delta(q, X)=(r, Y, R) => u Z q X v tack.r u Z Y r v\
   delta(q, X) = (r,Y,L) => u Z q X v tack.r u r Z Y v\
   delta(q, X) = bot => u q X v tack.r bot
   $
