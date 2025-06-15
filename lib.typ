@@ -2,6 +2,7 @@
 
 #let NeFSM = [ N$epsilon$FSM ]
 
+#let PDM(read, push, pop) =$#read thin #push slash #pop$
 
 #let bluebox(title, text, ..opts) = {
   showybox(
