@@ -34,7 +34,7 @@ The *Chomsky hierarchy* - in order of increasing complexity:
 + Context-free grammars (_equivalent to_ PDM)
 + Unrestricted grammars (_equivalent to_ semi-decidable TM)
 
-#image("img/nutshell.png")
+#image("images/nutshell.png")
 
 == Productive Grammars
 
@@ -681,8 +681,61 @@ Let $L$ be a language.
 
 - two way: the tape extends infinity in both directions
 - Multi-track: the equivalent of using tuples in the tape
+  #image("images/multi-track.png")
 - multi-tape
-- nondeterministic
+  #image("images/multi-tape.png")
+  #bluebox("Simulating Mulitape with Multitrack", [
+    Simulating a two-tape machine using a five-track machine:
+    - Tracks 1 and 3 maintain the information on tapes 1 and 2
+    - Tracks 2 and 4 use a symbol $X$ to indicate the position of the heads
+    - Track 5 uses a symbol \# to control the simulation
+    In general, a language accepted by a $k$-tape machine is accepted by a $2k + 1$-track machine
+  ])
+- nondeterministic (NTMs)
+  $
+    delta : Q times Gamma -> cal(P)(Q times Gamma times {tml, tmr})
+  $
+  When more than one transition is possible, the computation chooses arbitrarily one of them
+
+  An NTM may produce several computations for a single input
+  string. The string is accepted if there is a computation that
+  terminates.
+
+  The reader shows how to represent NTM as a deterministic two tape TM, but it s BS.
+
+- Any conbination is possible, and all TMs are equivalent
+
+== Always Terminating NTMs
+
+there are 3 kinds of computations with accepting NTMs
++ Terminating and accepting
++ Terminating and non-accepting
++ Non terminating
+
+an input is accepted iff it has at least one accepting computation
+
+== Complexity classes
+
+A (non)deterministic TM $M$ has *time complexity* $T(n)$
+if $M$ is guaranteed to terminate in at most $T(n)$ steps for every input
+string $w$ of length $n$.
+
+Let $L$ be a language and let $T(n)$ be a *polynomial function*:
+- $L$ belongs to the class $P$ if there is a deterministic TM
+  $M$ with $L = L(M)$ and with time complexity $T(n)$
+- $L$ belongs to the class $N P$ if there is an NTM $M$ with $L = L(M)$
+  and with time complexity $T(n)$
+- Because every deterministic TM can be regarded as an NTM with the same time complexity,
+  we have $P subset.eq N P$
+- Conjecture: $P != N P$.
+
+== Closure Properties
+
++ $L$ is decidable $=>$ $L$ is semi-decidable
++ $L$ is decidable $=>$ $overline(L)$ is decidable
++ $L$ and $overline(L)$ are semi-decidable $<=>$ $L$ is decidable
++ $L$ is semi-decidable $<=>$ $L^*$ is semi-decidable
++ $L_1$ and $L_2$ are semi-decidable $=>$ $L_1 L_2, L_1 union L_2, L_1 inter L_2$ are semi-decidable
 
 - Computing a function vs recognizing a language
 
