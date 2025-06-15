@@ -509,10 +509,10 @@ The stack only stores nonterminals
 
 == PDM to CFG
 
-+ $S -> <Q_0, epsilon q_f>$ (for every $q_f in F$)
-+ $<q, A, r> -> a <p, B, r>$ (Use $A$ now for the transition $p attach(->, t: PDM(a, A, B)) q$)
-+ $<q, A, r> -> <q, epsilon, p><p, A, r>$(use $A$ from an intermediate $p$)
-+ $<q, epsilon, q> -> epsilon$ (done processing)
++ $S -> angle.l Q_0, epsilon q_f angle.r$ (for every $q_f in F$)
++ $angle.l q, A, r angle.r -> a angle.l p, B, r angle.r$ (Use $A$ now for the transition $p attach(->, t: PDM(a, A, B)) q$)
++ $angle.l q, A, r angle.r -> angle.l q, epsilon, p angle.r angle.l p, A, r angle.r$(use $A$ from an intermediate $p$)
++ $angle.l q, epsilon,  angle.r -> epsilon$ (done processing)
 
 == Closure properties and proofs
 
