@@ -148,6 +148,7 @@ A proof that $L_1$ is not regular:
 $
  underbrace(accent(delta, "^")(q_0, u)=q_i, -->),  underbrace(accent(delta, "^")(q_i, v)=q_i, arrow.ccw), and  underbrace(accent(delta, "^")(q_i, w)=q_f in F, -->).]
 $
+]
 
 What does $arrow.ccw$ mean?
 - We could erase $v$ and the obtained string would be accepted!
