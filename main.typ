@@ -1,5 +1,8 @@
 #import "lib.typ": *
+#import "@preview/mannot:0.3.0": *
 #import "@preview/finite:0.5.0": automaton
+#import "@preview/finite:0.5.0"
+#import "@preview/finite:0.5.0": cetz
 
 #let title = [Languages and Machines]
 #set page(
@@ -276,9 +279,83 @@ A Formal system used to generate the strings of a language. A quadruple ($V, Sig
 - $Sigma$ is an alphabet of *terminals*, disjoint from $V$
 - $P$ is a finite set of *production rules*, taken from set $V times (V union Sigma)^*$. We write $A arrow$ instead of $(A, w)$.
 - $S in V$ is the *start symbol*.
+
 == PDM
+
+A *pushdown machine* is a tuple $M = (q, Sigma, Gamma, delta, q_0, F)$ where
+- $Q$ is a finite set of states
+- $Sigma$ is the input alphabet
+- $q_0$ is the start state
+- $F subset.eq Q$ is a set of accepting/final states
+- $Gamma$ is the alphabet for the *stack*
+- $delta$ is the transition function
+$
+  delta : mark(Q, tag: #<Q>, color: #blue) times (mark(Sigma union {epsilon}, tag:#<input_symbol>, color: #purple))
+  times (mark(Gamma union {epsilon}, tag:#<pop>, color: #red)) -> cal(P)(mark(Q, tag:#<newQ>, color: #blue) 
+  times (mark(Gamma union {epsilon}, tag:#<push>, color: #red)))
+
+  #annot(<Q>)[state]
+  #annot(<input_symbol>, pos: top)[input symbol]
+  #annot(<pop>)[symbol to pop off]
+  #annot(<newQ>, pos: top)[new state]
+  #annot(<push>)[symbol to push]
+$
+
+Acceptance:
+read full input, halt with empty stack on a final state
+
+#align(center, automaton(
+  (
+    q0: (q0: none, q1: none),
+    q1: (q1: none),
+  ),
+    labels: (
+      q0: $q_0$,
+      q0-q0: $PDM(a, epsilon, A)$,
+      q0-q1: $PDM(epsilon, epsilon, epsilon)$,
+      q1: $q_1$,
+      q1-q1: $PDM(b, A, epsilon)$
+    ),
+    style: (
+      transition: (curve: 0),
+    ),
+  )
+)
+
+
+=== Extended PDM
+Transitions push strings of symbols onto the stack, rather than just one symbol
+
 == CFG to PDM
+
+From a normalized Context-Free Grammar, we can construct a PDM that accepts that language.
+
+#cetz.canvas({
+  import finite.draw: state, loop, transition
+  state((0,0), "q0", label: $q_0$)
+  state((3,0), "q1", label: $q_1$)
+  transition("q0", "q1", label:$PDM(epsilon, epsilon, S)$, curve: 0)
+  loop("q1", label:$PDM(a, A, epsilon) "For each" A -> a in P, a in Sigma$)
+  loop("q1", anchor: bottom, label:$PDM(epsilon, A, A_1...a_n) "For each" A -> A_1...A_n in P, accent(A, arrow) in V^*$)
+})
+
+The stack only stores nonterminals
+
+== PDM to CFG
+
++ $S -> <Q_0, epsilon q_f>$ (for every $q_f in F$)
++ $<q, A, r> -> a <p, B, r>$ (Use $A$ now for the transition $p attach(->, t: PDM(a, A, B)) q$)
++ $<q, A, r> -> <q, epsilon, p><p, A, r>$(use $A$ from an intermediate $p$)
++ $<q, epsilon, q> -> epsilon$ (done processing)
+
 == Closure properties and proofs
+
+CFLs are closed under *union*, *concatenation* and *Kleene star*
+
+_Not_ closed under _intersection_ and _complementation_
+
+If $R$ is a regualr language and $L$ is a context-free language, then $R inter L$ is CFL
+
 == making a grammar productive
 
 
