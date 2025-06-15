@@ -4,6 +4,12 @@
 
 #let PDM(read, push, pop) =$#read thin #push slash #pop$
 
+#let TM(read, write, move) = $#read slash #write thin #move$
+#let blank = $cal(B)$
+#let tml = $upright(L)$
+#let tmr = $upright(R)$
+
+
 #let bluebox(title, text, ..opts) = {
   showybox(
     title-style: (
@@ -64,8 +70,3 @@
     ..opts
   )
 }
-#let blank = $cal(B)$
-#let tml = $upright(L)$
-#let tmr = $upright(R)$
-#let TM(read, write, move) = $#read backslash #write thin #move$
-

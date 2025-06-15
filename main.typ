@@ -617,9 +617,9 @@ A TM that reads the input string and interchanges symbols $a$ and $b$:
     initial: "q1",
     final: none,
     labels: (
-      q1-q1: $a slash b tml\ b slash a tmr\ $,
-      q1-q2: $B slash B L$,
-      q2-q2: $a slash a L\ b slash b L\ $,
+      q1-q1: $TM(a, b, tml) \ TM(b, a, tmr)\ $,
+      q1-q2: $TM(blank, blank, tml)$,
+      q2-q2: $TM(a, a, tml)\ TM(b, b, tml)\ $,
     ),
   )
 )
@@ -676,8 +676,10 @@ Let $L$ be a language.
 - $L$ is *semi-decidable* (or *recursively enumerable, RE*) if there exists a TM $M$ such that $L = L(M)$.
 - $L$ is *decidable* (or *recursive*) if there is an always terminating TM that accepts $L$ by termination in an accepting state.
 - If $L$ is decidable, then it is also semi-decidable. *The converse doesn't hold!!!*
+
 == Variations of TMs
 
+- two way: the tape extends infinity in both directions
 - Multi-track: the equivalent of using tuples in the tape
 - multi-tape
 - nondeterministic
