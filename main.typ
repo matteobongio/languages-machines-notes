@@ -18,13 +18,8 @@
    Roman Gazarek
 ])
 
-= Overview
-
-+ Regular languages, recognized by FSM
-+ Context-free languages, recognized by PDM
-+ Decidable languages, recognized by always terminating TM
-+ semi-decidable languages, recognized by TM
-- Induction
+#set heading(numbering: "1.")
+#outline()
 
 = Grammars
 
