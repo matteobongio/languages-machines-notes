@@ -829,7 +829,6 @@ A problem is:
 + Modify $H$ to build another TM, called $K$: the computations of $K$ are the same as $H$, but $K$ loops indefinitely whenever $H$ terminates in an accepting state (whenever $M$ halts on $w$).
 + Combine $K$ with a "copy machine" to build another TM called $D$, with $D(M) = K(M,M)$ as follows: #figure(
   image("images/halting3.png"),
-  caption: "If the call " + $D(M)$ + "terminates, then the call " + $M(M)$ + "won't terminate"
 )
 + The input to $D$ may be the representation of any TM, even $D$ itself. Adapting the diagram: #image("images/halting4.png")\ Thus, $D(D)$ terminates iff $D(D)$ doesn't terminate. A contradiction derived from the assumption that there is a machine $H$ that solves the halting problem.
 
