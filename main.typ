@@ -775,7 +775,7 @@ capture a robust notion of effective computability
 
 === Terminology
 
-A language $L$ is 
+A language $L$ is
 - *recursive* if $L = L(M)$ for some #underline("always terminating") TM $M$
 - *recursively enumerable* if $L=L(M)$ for some TM $M$\ \
 Alternatively, let $P$ be a *property* of strings.
@@ -789,7 +789,7 @@ Similarly:
 - Property $P$ is semi-decidable $<=>$ Set ${x | P(x)}$ is recursively enumerable
 - Set $A$ is recursively enumerable $<=> x in A$ is semi-decidable
 
-=== Decision problems 
+=== Decision problems
 A question which expects a 'yes' or 'no' answer, depending on some given *instance* (positive or negative). We would like to have procedures (programs, TMs) to answer correctly this question in all cases.\
 Examples:
 + Given a graph, is there a path between two of its nodes?
@@ -848,6 +848,28 @@ Given a program $P$ #underline("without input"), is there a program $Q$ that can
 + Thus, $Q(L(P_i,I))$ terminates iff the call $P_i(I)$ terminates
 + Define a program $Q'$ such that $Q'(P_i, I) = Q(L(P_i,I))$
 + $Q'$ would decide the halting problem - a contradiction
+
+== Universal TM
+
+A Universal TM can read TM representations as input and simulate running it
+
+$R(M)$ is the representation of M as a string
+
+$M$ terminates on in $w$ iff UTM terminates on input $R(M)w$
+
+=== Running a binary on a 3-tape UTM
+
++ check the format of the input, enter an infite loop if invalid
++ move input to tape 2
++ Write 1 on tape 3
++ Simulate by repeating:
+  + Find a transition based on
+    - the state (tape 3)
+    - the current symbol (tape 2)
+  + If no transition is found, terminate
+  + otherwise, if a transition is found, change the state,
+  change the symbol, move the head (tape 2)
+
 
 == Pumping lemma
 
