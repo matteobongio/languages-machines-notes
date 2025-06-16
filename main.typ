@@ -388,7 +388,7 @@ Dumbass lemma. You have a sufficiently long string, find a substring which you c
 Prove tht L is not regular by the pumping lemma
 
 
-There exists a $k >= 0$ such that
+There exists a $k >= 1$ such that
 for every $z in L "for which" |z| >= k$, there exists a splitting
 $z = u v w$ with $|u v| <= k$ and $v != epsilon$ such that
 for every $i >= 0$ we have $u v^i w in L$
